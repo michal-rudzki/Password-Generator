@@ -1,4 +1,4 @@
-from random import randrange
+from random import randrange, randint
 
 """    
     lowercase: [97, 122]
@@ -9,16 +9,42 @@ from random import randrange
 
 class PasswordGenerator:
     
-    def gen_password(lowercase=True, uppercase=True):
-        password = ""
+    def __init__(self, length=1, lowercase=True, uppercase=True, \
+        numbers=True, special=False):
+        self.length = length
+        self.lowercase = lowercase
+        self.uppercase = uppercase
+        self.numbers = numbers
+        self.special = special
+    
+    def gen_password(self):
+        password = []
+        DEBUG = False
+        if DEBUG == True:
+            print(f"length: {self.length}")
+            print(f"lowercase: {self.lowercase}")
+            print(f"uppercase: {self.uppercase}")
+            print(f"numbers: {self.numbers}")
+            print(f"special: {self.numbers}")
+            
+        for l in range(self.length):
+            if self.lowercase == True:
+                password.append(chr(self.gen_lowercase()))
+            if self.uppercase == True:
+                password.append(chr(self.gen_uppercase()))
+            if self.numbers == True:
+                password.append(chr(self.gen_numbers()))
+            if self.special == True:
+                password.append(chr(self.gen_special()))
+        return (f"Password: {password}")
                 
-    def gen_lowercase():
+    def gen_lowercase(self):
         return randrange(97, 122)
     
-    def gen_uppercase():
+    def gen_uppercase(self):
         return randrange(65, 90)
     
-    def gen_numbers():
+    def gen_numbers(self):
         return randrange(48, 57)
     
     def gen_special_char():
