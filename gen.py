@@ -19,6 +19,7 @@ class PasswordGenerator:
     
     def gen_password(self):
         password = []
+        tmp = []
         DEBUG = False
         if DEBUG == True:
             print(f"length: {self.length}")
@@ -29,15 +30,19 @@ class PasswordGenerator:
             
         for l in range(self.length):
             if self.lowercase == True:
-                password.append(chr(self.gen_lowercase()))
+                tmp.append(chr(self.gen_lowercase()))
             if self.uppercase == True:
-                password.append(chr(self.gen_uppercase()))
+                tmp.append(chr(self.gen_uppercase()))
             if self.numbers == True:
-                password.append(chr(self.gen_numbers()))
+                tmp.append(chr(self.gen_numbers()))
             if self.special == True:
-                password.append(chr(self.gen_special()))
-        return (f"Password: {password}")
-                
+                tmp.append(chr(self.gen_special_char()))
+        
+        for p in tmp:
+            password.append(tmp[randint(0,len(tmp)-1)])
+            
+        return "".join(password)
+
     def gen_lowercase(self):
         return randrange(97, 122)
     
@@ -47,7 +52,7 @@ class PasswordGenerator:
     def gen_numbers(self):
         return randrange(48, 57)
     
-    def gen_special_char():
+    def gen_special_char(self):
         if randrange(1,3) == 1:
             return randrange(33,47)
         elif randrange(1,3) == 2:
